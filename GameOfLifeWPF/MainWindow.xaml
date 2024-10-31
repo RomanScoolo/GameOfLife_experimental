@@ -1,0 +1,121 @@
+﻿<Window x:Class="GameOfLifeWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GameOfLifeWPF"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        Title="Game of Life" Height="950" Width="1020" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="122" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Label Grid.ColumnSpan="2" HorizontalAlignment="Center">Base data:</Label>
+            <Label Grid.Column="0" Grid.Row="1">Size:</Label>
+            <TextBlock Grid.Column="1" Grid.Row="1" VerticalAlignment="Center">20</TextBlock>
+            <Label Grid.Column="0" Grid.Row="2"># of cells:</Label>
+            <TextBlock Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Name="noCells">0</TextBlock>
+        </Grid>
+        <Grid Grid.Column="1" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="40" />
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="80" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Label Grid.ColumnSpan="2" HorizontalAlignment="Center">Generations</Label>
+            <Label Grid.Row="1">Status:</Label>
+            <TextBlock Name="TimerStatus" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center">Stopped</TextBlock>
+            <Label Grid.Row="2">Count:</Label>
+            <TextBlock Name="TimerValue"  Grid.Column="1" Grid.Row="2" VerticalAlignment="Center">0</TextBlock>
+            <Label  Grid.Column="3" Grid.Row="1">Speed: [ms]</Label>
+            <TextBox Name="TimerInterval" Grid.Column="4" Grid.Row="1" VerticalAlignment="Center">100</TextBox>
+            <Label  Grid.Column="3" Grid.Row="2">Random: [%]</Label>
+            <TextBox Name="RandomCells" Grid.Column="4" Grid.Row="2" VerticalAlignment="Center">50</TextBox>
+            <Label  Grid.Column="6" Grid.Row="1">Name:</Label>
+            <TextBox Name="gridName" Grid.Column="7" Grid.Row="1" VerticalAlignment="Center">D:\grid.xml</TextBox>
+        </Grid>
+        <StackPanel Grid.Column="2" Grid.RowSpan="2" Margin="5">
+            <Button Name="runStart" PreviewMouseDown="startGen">Start</Button>
+            <Line Height="3"></Line>
+            <Button Name="runStop" PreviewMouseDown="stopGen">Stop</Button>
+            <Line Height="3"></Line>
+            <Button Name="clearGrid" PreviewMouseDown="clearGen">Clear</Button>
+            <Line Height="3"></Line>
+            <Button Name="randomGrid" PreviewMouseDown="randGen">Random</Button>
+            <Line Height="3"></Line>
+            <Button Name="pathGrid" PreviewMouseDown="pathGen">Path</Button>
+            <Line Height="3"></Line>
+            <Button Name="optimGrid" PreviewMouseDown="optimGen" IsEnabled="False" >Optimal</Button>
+            <Line Height="3"></Line>
+            <Button Name="seekGrid" PreviewMouseDown="seekGen" IsEnabled="False" >Seeker</Button>
+            <Line Height="3"></Line>
+            <Button Name="saveGrid" PreviewMouseDown="saveGen">Save</Button>
+            <Line Height="3"></Line>
+            <Button Name="loadGrid" PreviewMouseDown="loadGen">Load</Button>
+            <Line Height="3"></Line>
+            <Button Name="load2Grid" PreviewMouseDown="load2Gen">Load Any</Button>
+            <Line Height="15"></Line>
+            <Label>Demo grids:</Label>
+            <Button Name="gliderGrid" PreviewMouseDown="gliderGen">Glider</Button>
+            <Line Height="3"></Line>
+            <Button Name="rocketGrid" PreviewMouseDown="rocketGen">Rocket</Button>
+            <Line Height="3"></Line>
+            <Button Name="huntingGrid" PreviewMouseDown="huntingGen">Hunting</Button>
+            <Line Height="3"></Line>
+            <Button Name="staticGrid" PreviewMouseDown="staticGen">Static</Button>
+            <Line Height="3"></Line>
+            <Button Name="antsGrid" PreviewMouseDown="antsGen">Ants</Button>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Margin="5">
+            <TextBlock FontWeight="Bold">Controls:</TextBlock>
+            <TextBlock>click to Set/Reset</TextBlock>
+            <TextBlock>Start generations</TextBlock>
+            <TextBlock>Stop generations</TextBlock>
+            <TextBlock>Clear cells grid</TextBlock>
+            <TextBlock>Random new grid</TextBlock>
+            <TextBlock />
+            <TextBlock>Speed in miliseconds</TextBlock>
+            <TextBlock />
+            <TextBlock>Type of cells:</TextBlock>
+            <TextBlock>empty - no cell</TextBlock>
+            <TextBlock>black - normal cell</TextBlock>
+            <TextBlock>green - food cell</TextBlock>
+            <TextBlock>blue - hunter cell</TextBlock>
+            <TextBlock>green - farmer cell</TextBlock>
+            <TextBlock>aqua - mover cell</TextBlock>
+            <TextBlock>brown - wall cell</TextBlock>
+            <TextBlock>red - ant cell</TextBlock>
+        </StackPanel>
+        <UniformGrid Grid.Column="1" Grid.Row="1" Name="UniGrid" PreviewMouseUp="gridMouseUp">
+        </UniformGrid>
+    </Grid>
+</Window>
